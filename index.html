@@ -630,7 +630,7 @@
             text-align: center;
             opacity: 0;
             animation: fadeInLine 2s forwards;
-            animation-delay: 15s;
+            animation-delay: 18s;
             background: rgba(0, 0, 0, 0.65);
             padding: 14px 32px;
             border-radius: 14px;
@@ -1114,7 +1114,16 @@
                 const brightnessMin = isMobile ? 15 : 10;
                 const contrast = 1.8;
 
-                const maxSize = Math.min(canvas.width * 0.9, canvas.height * 0.9);
+                // === РАЗМЕР ПОРТРЕТА ===
+                let maxSize;
+                if (isMobile) {
+                    // На телефоне — почти на весь экран
+                    maxSize = Math.min(canvas.width * 0.98, canvas.height * 0.75);
+                } else {
+                    // На компе — чуть меньше
+                    maxSize = Math.min(canvas.width * 0.9, canvas.height * 0.9);
+                }
+
                 const scale = Math.min(maxSize / img.width, maxSize / img.height);
 
                 const imgW = img.width * scale;
