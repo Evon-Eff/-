@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" href="ksusha1.jpg" type="image/x-icon">
+    <link rel="icon" href="ksusha.jpg" type="image/x-icon">
     <title>Для Ксюши ❤️</title>
     <style>
         * {
@@ -620,7 +620,7 @@
 
         .star-message {
             position: absolute;
-            bottom: 8%;
+            bottom: 5%;
             left: 50%;
             transform: translateX(-50%);
             color: #fff;
@@ -919,7 +919,7 @@
 
         <div class="final-photo-screen" id="finalPhotoScreen">
             <div class="photo-wrapper">
-                <img src="ksusha1.jpg" alt="Ксюша">
+                <img src="ksusha.jpg" alt="Ксюша">
             </div>
 
             <div class="poems">
@@ -1114,24 +1114,25 @@
                 const brightnessMin = isMobile ? 15 : 10;
                 const contrast = 1.8;
 
-                // === РАЗМЕР ПОРТРЕТА ===
-                let maxSize;
+                // === РАЗМЕР ПОРТРЕТА (РАСТЯГИВАЕМ) ===
+                let imgW, imgH;
+
                 if (isMobile) {
-                    // На телефоне — почти на весь экран
-                    maxSize = Math.min(canvas.width * 0.98, canvas.height * 0.75);
+                    // На телефоне — на всю ширину и 75% высоты
+                    imgW = canvas.width * 0.95;
+                    imgH = canvas.height * 0.75;
                 } else {
-                    // На компе — чуть меньше
-                    maxSize = Math.min(canvas.width * 0.9, canvas.height * 0.9);
+                    // На компе — как было
+                    const maxSize = Math.min(canvas.width * 0.9, canvas.height * 0.9);
+                    const scale = Math.min(maxSize / img.width, maxSize / img.height);
+                    imgW = img.width * scale;
+                    imgH = img.height * scale;
                 }
-
-                const scale = Math.min(maxSize / img.width, maxSize / img.height);
-
-                const imgW = img.width * scale;
-                const imgH = img.height * scale;
 
                 tempCanvas.width = Math.floor(imgW / particleSize);
                 tempCanvas.height = Math.floor(imgH / particleSize);
 
+                // Рисуем фото на весь tempCanvas (растягивая)
                 tempCtx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
 
                 const data = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height).data;
