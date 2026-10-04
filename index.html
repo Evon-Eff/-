@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ksusha1.jpg" type="image/x-icon">
+    <title>Для Ксюши ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            min-height: 100vh;
+            background: #0a0a0a;
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: background 1s;
+            overflow-y: auto;
+        }
+
+        body.unlocked {
+            background: linear-gradient(135deg, #0a0010, #1a0510);
+        }
+
+        .container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            padding: 20px 0 60px 0;
+        }
+
+        .start-screen {
+            background: rgba(0, 0, 0, 0.92);
+            padding: 50px 40px;
+            border-radius: 24px;
+            border: 2px solid #ff4d6d;
+            box-shadow: 0 0 80px rgba(255, 77, 109, 0.15);
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 1s ease;
+        }
+
+        .start-screen.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .start-screen.hidden {
+            display: none;
+        }
+
+        .start-icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+            animation: pulse 1.5s infinite;
+        }
+
+        .start-screen h2 {
+            color: #fff;
+            font-size: 22px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .start-screen p {
+            color: #888;
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .start-btn {
+            padding: 18px 50px;
+            font-size: 20px;
+            background: linear-gradient(135deg, #ff4d6d, #ff69b4);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            letter-spacing: 3px;
+            width: 100%;
+            box-shadow: 0 0 40px rgba(255, 77, 109, 0.2);
+        }
+
+        .start-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 60px rgba(255, 77, 109, 0.4);
+        }
+
+        .congrats-content {
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.5s ease;
+            max-width: 600px;
+            width: 100%;
+            padding: 0 10px 40px 10px;
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: #ff4d6d transparent;
+        }
+
+        .congrats-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .congrats-content::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .congrats-content::-webkit-scrollbar-thumb {
+            background: #ff4d6d;
+            border-radius: 8px;
+        }
+
+        .congrats-content.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .congrats-content .icon-top {
+            font-size: 52px;
+            display: block;
+            margin-bottom: 12px;
+            animation: pulse 1.5s infinite;
+            text-align: center;
+        }
+
+        .congrats-content h1 {
+            color: #fff;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .congrats-content .congrats-text {
+            color: #e0d0d0;
+            font-size: 16px;
+            line-height: 2.1;
+            font-family: 'Georgia', serif;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 24px 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 77, 109, 0.12);
+            margin-bottom: 30px;
+        }
+
+        .congrats-content .congrats-text .line {
+            display: block;
+            opacity: 0;
+            animation: fadeInLine 0.45s forwards;
+        }
+
+        .congrats-content .congrats-text .line:nth-child(1)  { animation-delay: 0.5s; }
+        .congrats-content .congrats-text .line:nth-child(2)  { animation-delay: 0.9s; }
+        .congrats-content .congrats-text .line:nth-child(3)  { animation-delay: 1.3s; }
+        .congrats-content .congrats-text .line:nth-child(4)  { animation-delay: 1.7s; }
+        .congrats-content .congrats-text .line:nth-child(5)  { animation-delay: 2.1s; }
+        .congrats-content .congrats-text .line:nth-child(6)  { animation-delay: 2.5s; }
+        .congrats-content .congrats-text .line:nth-child(7)  { animation-delay: 2.9s; }
+        .congrats-content .congrats-text .line:nth-child(8)  { animation-delay: 3.3s; }
+        .congrats-content .congrats-text .line:nth-child(9)  { animation-delay: 3.7s; }
+        .congrats-content .congrats-text .line:nth-child(10) { animation-delay: 4.1s; }
+        .congrats-content .congrats-text .line:nth-child(11) { animation-delay: 4.5s; }
+        .congrats-content .congrats-text .line:nth-child(12) { animation-delay: 4.9s; }
+        .congrats-content .congrats-text .line:nth-child(13) { animation-delay: 5.3s; }
+        .congrats-content .congrats-text .line:nth-child(14) { animation-delay: 5.7s; }
+        .congrats-content .congrats-text .line:nth-child(15) { animation-delay: 6.1s; }
+        .congrats-content .congrats-text .line:nth-child(16) { animation-delay: 6.5s; }
+        .congrats-content .congrats-text .line:nth-child(17) { animation-delay: 6.9s; }
+        .congrats-content .congrats-text .line:nth-child(18) { animation-delay: 7.3s; }
+        .congrats-content .congrats-text .line:nth-child(19) { animation-delay: 7.7s; }
+        .congrats-content .congrats-text .line:nth-child(20) { animation-delay: 8.1s; }
+        .congrats-content .congrats-text .line:nth-child(21) { animation-delay: 8.5s; }
+        .congrats-content .congrats-text .line:nth-child(22) { animation-delay: 8.9s; }
+        .congrats-content .congrats-text .line:nth-child(23) { animation-delay: 9.3s; }
+        .congrats-content .congrats-text .line:nth-child(24) { animation-delay: 9.7s; }
+        .congrats-content .congrats-text .line:nth-child(25) { animation-delay: 10.1s; }
+        .congrats-content .congrats-text .line:nth-child(26) { animation-delay: 10.5s; }
+        .congrats-content .congrats-text .line:nth-child(27) { animation-delay: 10.9s; }
+        .congrats-content .congrats-text .line:nth-child(28) { animation-delay: 11.3s; }
+        .congrats-content .congrats-text .line:nth-child(29) { animation-delay: 11.7s; }
+        .congrats-content .congrats-text .line:nth-child(30) { animation-delay: 12.1s; }
+        .congrats-content .congrats-text .line:nth-child(31) { animation-delay: 12.5s; }
+
+        @keyframes fadeInLine {
+            from { opacity: 0; transform: translateX(-6px); }
+            to   { opacity: 1; transform: translateX(0); }
+        }
+
+        .signature {
+            margin-top: 0px;
+            color: #ff4d6d;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInLine 0.8s forwards;
+            animation-delay: 13.0s;
+        }
+
+        .signature span {
+            color: #fff;
+            font-weight: 300;
+        }
+
+        .next-btn-wrapper {
+            text-align: center;
+            margin-top: 10px;
+            padding-bottom: 20px;
+            opacity: 0;
+            animation: fadeInLine 0.8s forwards;
+            animation-delay: 13.5s;
+        }
+
+        .next-btn {
+            padding: 16px 50px;
+            font-size: 20px;
+            background: linear-gradient(135deg, #ffd700, #ff69b4);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.15);
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(255, 215, 0, 0.3);
+        }
+
+        .final-photo-screen {
+            display: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.5s ease;
+            max-width: 550px;
+            width: 100%;
+            padding: 0 10px 40px 10px;
+            text-align: center;
+        }
+
+        .final-photo-screen.show {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .final-photo-screen .photo-wrapper {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #ff4d6d;
+            overflow: hidden;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 60px rgba(255, 77, 109, 0.2);
+        }
+
+        .final-photo-screen .photo-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .final-photo-screen .poems {
+            color: #e0d0d0;
+            font-size: 16px;
+            line-height: 2.0;
+            font-family: 'Georgia', serif;
+            text-align: left;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 24px 28px;
+            border-radius: 16px;
+            border: 1px solid rgba(255, 77, 109, 0.12);
+            margin-bottom: 20px;
+        }
+
+        .final-photo-screen .poems .poem-block {
+            display: block;
+            opacity: 0;
+            animation: fadeInLine 0.6s forwards;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .final-photo-screen .poems .poem-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .final-photo-screen .poems .poem-block:nth-child(1) { animation-delay: 0.5s; }
+        .final-photo-screen .poems .poem-block:nth-child(2) { animation-delay: 1.7s; }
+        .final-photo-screen .poems .poem-block:nth-child(3) { animation-delay: 2.9s; }
+
+        .final-photo-screen .poems .poem-title {
+            color: #ff4d6d;
+            font-size: 15px;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            text-align: center;
+            display: block;
+            font-weight: bold;
+        }
+
+        .final-photo-screen .poems .poem-text {
+            display: block;
+            color: #e0d0d0;
+            font-style: italic;
+            line-height: 1.9;
+        }
+
+        .final-photo-screen .final-greeting {
+            color: #ffd700;
+            font-size: 20px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            opacity: 0;
+            animation: fadeInLine 0.8s forwards;
+            animation-delay: 3.5s;
+        }
+
+        .final-photo-screen .final-greeting span {
+            color: #fff;
+            font-weight: 300;
+        }
+
+        .stars-btn-wrapper {
+            text-align: center;
+            margin-top: 30px;
+            padding-bottom: 20px;
+            opacity: 0;
+            animation: fadeInLine 0.8s forwards;
+            animation-delay: 4.0s;
+        }
+
+        .stars-btn {
+            padding: 16px 50px;
+            font-size: 20px;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+            letter-spacing: 2px;
+            box-shadow: 0 0 40px rgba(106, 17, 203, 0.3);
+            width: 100%;
+            max-width: 320px;
+        }
+
+        .stars-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 60px rgba(106, 17, 203, 0.6);
+        }
+
+        .star-portrait-screen {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #000;
+            z-index: 10000;
+            overflow: hidden;
+        }
+
+        .star-portrait-screen.show {
+            display: block;
+        }
+
+        .space-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.06) 0%, transparent 60%),
+                #000;
+            z-index: 1;
+        }
+
+        .nebula {
+            position: absolute;
+            top: 5%;
+            left: 2%;
+            width: 40vmin;
+            height: 40vmin;
+            max-width: 450px;
+            max-height: 450px;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle, rgba(200, 200, 255, 0.25) 0%, rgba(150, 150, 255, 0.1) 30%, transparent 70%);
+            filter: blur(20px);
+            z-index: 2;
+            animation: nebulaPulse 12s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes nebulaPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.1); opacity: 1; }
+        }
+
+        .moon-wrapper {
+            position: absolute;
+            bottom: 8%;
+            left: 5%;
+            width: 18vmin;
+            height: 18vmin;
+            max-width: 180px;
+            max-height: 180px;
+            z-index: 2;
+            animation: moonFloat 10s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes moonFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .moon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 35% 35%, #e0e0e0 0%, #a0a0a0 40%, #505050 80%, #202020 100%);
+            box-shadow:
+                inset -10px -10px 30px rgba(0, 0, 0, 0.8),
+                inset 5px 5px 20px rgba(255, 255, 255, 0.3),
+                0 0 60px rgba(255, 255, 255, 0.25);
+        }
+
+        .moon::before,
+        .moon::after {
+            content: '';
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .moon::before {
+            top: 25%;
+            left: 30%;
+            width: 20%;
+            height: 20%;
+            box-shadow:
+                0.5em 0.8em 0 0.1em rgba(0, 0, 0, 0.25),
+                1em -0.3em 0 0.05em rgba(0, 0, 0, 0.2);
+        }
+
+        .moon::after {
+            top: 60%;
+            left: 55%;
+            width: 15%;
+            height: 15%;
+            box-shadow:
+                -0.4em 0.5em 0 0.08em rgba(0, 0, 0, 0.22),
+                0.6em 0.6em 0 0.05em rgba(0, 0, 0, 0.18);
+        }
+
+        .planet-wrapper {
+            position: absolute;
+            bottom: 8%;
+            right: 5%;
+            width: 35vmin;
+            height: 35vmin;
+            max-width: 380px;
+            max-height: 380px;
+            z-index: 2;
+            animation: planetFloat 15s ease-in-out infinite;
+            pointer-events: none;
+            opacity: 0.9;
+        }
+
+        @keyframes planetFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(180deg); }
+        }
+
+        .planet {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55%;
+            height: 55%;
+            border-radius: 50%;
+            background:
+                radial-gradient(circle at 30% 30%, #c0c0c0 0%, #808080 30%, #404040 60%, #101010 100%);
+            box-shadow:
+                inset -30px -30px 80px rgba(0, 0, 0, 0.8),
+                inset 20px 20px 60px rgba(255, 255, 255, 0.15),
+                0 0 100px rgba(255, 255, 255, 0.15);
+            animation: planetRotate 60s linear infinite;
+        }
+
+        @keyframes planetRotate {
+            from { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+            to { filter: brightness(1); }
+        }
+
+        .planet::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 20%;
+            width: 25%;
+            height: 15%;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            filter: blur(15px);
+        }
+
+        .planet::after {
+            content: '';
+            position: absolute;
+            top: 55%;
+            left: 60%;
+            width: 20%;
+            height: 20%;
+            border-radius: 50%;
+            background: rgba(0, 0, 0, 0.5);
+            filter: blur(20px);
+        }
+
+        .ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 120%;
+            height: 120%;
+            border-radius: 50%;
+            transform: translate(-50%, -50%) rotateX(75deg) rotateZ(-20deg);
+            border: 3px solid transparent;
+            border-top: 4px solid rgba(255, 255, 255, 0.5);
+            border-bottom: 4px solid rgba(200, 200, 200, 0.3);
+            box-shadow: 0 0 40px rgba(255, 255, 255, 0.15);
+        }
+
+        .ring-2 {
+            width: 140%;
+            height: 140%;
+            border-top: 2px solid rgba(255, 255, 255, 0.3);
+            border-bottom: 2px solid rgba(180, 180, 180, 0.2);
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
+        }
+
+        .ring-3 {
+            width: 100%;
+            height: 100%;
+            border-top: 3px solid rgba(255, 255, 255, 0.4);
+            border-bottom: 3px solid rgba(200, 200, 200, 0.25);
+        }
+
+        .star-field {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .bg-star {
+            position: absolute;
+            background: #fff;
+            border-radius: 50%;
+            animation: starTwinkle 3s infinite;
+        }
+
+        @keyframes starTwinkle {
+            0%, 100% { opacity: 0.2; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        #starCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+        }
+
+        .star-message {
+            position: absolute;
+            bottom: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #fff;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-align: center;
+            opacity: 0;
+            animation: fadeInLine 2s forwards;
+            animation-delay: 15s;
+            background: rgba(0, 0, 0, 0.65);
+            padding: 14px 32px;
+            border-radius: 14px;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            -webkit-text-stroke: 1.5px black;
+            paint-order: stroke fill;
+            text-shadow:
+                0 0 20px rgba(255, 255, 255, 0.8),
+                0 0 40px rgba(255, 255, 255, 0.4);
+            z-index: 10;
+            font-family: 'Georgia', serif;
+            white-space: nowrap;
+        }
+
+        .star-message span {
+            color: #fff;
+            font-weight: bold;
+        }
+
+        .particle {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: flyUp 5s forwards;
+            opacity: 0;
+            font-size: 28px;
+        }
+
+        @keyframes flyUp {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(0.3) rotate(0deg);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-800px) scale(1.6) rotate(720deg);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: #fff;
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.15; }
+            50% { opacity: 0.9; }
+        }
+
+        @media (max-width: 768px) {
+            .planet-wrapper {
+                width: 45vmin;
+                height: 45vmin;
+                bottom: 5%;
+                right: 5%;
+            }
+            .moon-wrapper {
+                width: 22vmin;
+                height: 22vmin;
+                bottom: 6%;
+                left: 5%;
+            }
+            .nebula {
+                width: 50vmin;
+                height: 50vmin;
+            }
+            .star-message {
+                font-size: 20px;
+                letter-spacing: 2px;
+                white-space: normal;
+                padding: 10px 20px;
+            }
+        }
+
+        @media (max-width: 500px) {
+            .start-screen {
+                padding: 40px 24px;
+                max-width: 340px;
+            }
+            .start-screen h2 {
+                font-size: 19px;
+            }
+            .start-btn {
+                font-size: 17px;
+                padding: 16px 30px;
+            }
+            .start-icon {
+                font-size: 54px;
+            }
+            .congrats-content h1 {
+                font-size: 22px;
+            }
+            .congrats-content .congrats-text {
+                font-size: 15px;
+                padding: 18px 16px;
+                margin-bottom: 20px;
+            }
+            .signature {
+                font-size: 17px;
+            }
+            .congrats-content {
+                max-height: 85vh;
+                padding: 0 6px 30px 6px;
+            }
+            .final-photo-screen .photo-wrapper {
+                width: 150px;
+                height: 150px;
+            }
+            .final-photo-screen .poems {
+                font-size: 15px;
+                padding: 18px 16px;
+            }
+            .final-photo-screen .final-greeting {
+                font-size: 17px;
+            }
+            .next-btn, .stars-btn {
+                font-size: 17px;
+                padding: 14px 30px;
+                max-width: 280px;
+            }
+            .next-btn-wrapper, .stars-btn-wrapper {
+                padding-bottom: 10px;
+            }
+            .final-photo-screen {
+                padding: 0 6px 30px 6px;
+            }
+            .star-message {
+                font-size: 17px;
+                letter-spacing: 1px;
+                padding: 8px 16px;
+            }
+            .planet-wrapper {
+                width: 50vmin;
+                height: 50vmin;
+                bottom: 5%;
+                right: 5%;
+            }
+            .moon-wrapper {
+                width: 25vmin;
+                height: 25vmin;
+                bottom: 5%;
+                left: 5%;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .start-screen {
+                padding: 30px 18px;
+                max-width: 290px;
+            }
+            .start-screen h2 {
+                font-size: 17px;
+            }
+            .start-screen p {
+                font-size: 14px;
+            }
+            .start-btn {
+                font-size: 15px;
+                padding: 14px 20px;
+            }
+            .start-icon {
+                font-size: 48px;
+            }
+            .congrats-content .congrats-text {
+                font-size: 14px;
+                padding: 14px 12px;
+                margin-bottom: 15px;
+            }
+            .congrats-content h1 {
+                font-size: 19px;
+            }
+            .signature {
+                font-size: 15px;
+            }
+            .congrats-content {
+                max-height: 80vh;
+                padding: 0 4px 20px 4px;
+            }
+            .final-photo-screen .photo-wrapper {
+                width: 120px;
+                height: 120px;
+            }
+            .final-photo-screen .poems {
+                font-size: 14px;
+                padding: 14px 12px;
+            }
+            .final-photo-screen .final-greeting {
+                font-size: 15px;
+            }
+            .next-btn, .stars-btn {
+                font-size: 15px;
+                padding: 12px 24px;
+                max-width: 250px;
+            }
+            .next-btn-wrapper, .stars-btn-wrapper {
+                padding-bottom: 5px;
+            }
+            .final-photo-screen {
+                padding: 0 4px 20px 4px;
+            }
+            .star-message {
+                font-size: 15px;
+                letter-spacing: 1px;
+                padding: 6px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="stars" id="stars"></div>
+
+    <div class="container">
+
+        <div class="start-screen show" id="startScreen">
+            <span class="start-icon">💌</span>
+            <h2>У меня для тебя кое-что есть...</h2>
+            <p>Нажми на кнопку ниже, чтобы открыть поздравление</p>
+            <button class="start-btn" id="startBtn">💖 К ПОЗДРАВЛЕНИЮ</button>
+        </div>
+
+        <div class="congrats-content" id="congratsContent">
+            <span class="icon-top">🎂</span>
+            <h1>С 18-летием!</h1>
+            <div class="congrats-text">
+                <span class="line">Ксюша...</span>
+                <span class="line">Сегодня тебе 18. 🎂</span>
+                <span class="line">Сегодня ты официально взрослая.</span>
+                <span class="line">И я хочу сказать тебе кое-что важное.</span>
+                <span class="line">18 лет — это не просто цифра.</span>
+                <span class="line">Это начало чего-то большого.</span>
+                <span class="line">Новые возможности, новые мечты, новая ты.</span>
+                <span class="line">И я хочу быть рядом, когда всё это будет происходить.</span>
+                <span class="line">Ты — человек, который изменил мою жизнь.</span>
+                <span class="line">Ты пришла в неё и сделала её ярче, теплее, светлее.</span>
+                <span class="line">Рядом с тобой я становлюсь лучше.</span>
+                <span class="line">Ты вдохновляешь меня, ты заряжаешь меня энергией,</span>
+                <span class="line">ты делаешь меня счастливым.</span>
+                <span class="line">Твой смех — он заразительный.</span>
+                <span class="line">Твои глаза — в них я вижу целый мир.</span>
+                <span class="line">Твоя улыбка согревает меня, даже когда вокруг холодно.</span>
+                <span class="line">И твой голос... я могу слушать его бесконечно.</span>
+                <span class="line">Ты — самая добрая, самая нежная, самая красивая девушка,</span>
+                <span class="line">которую я знаю.</span>
+                <span class="line">И я безмерно счастлив, что ты есть в моей жизни.</span>
+                <span class="line">В этот день я хочу пожелать тебе:</span>
+                <span class="line">будь счастлива.</span>
+                <span class="line">Будь собой.</span>
+                <span class="line">Иди за мечтой.</span>
+                <span class="line">И помни — я всегда рядом.</span>
+                <span class="line">Потому что когда счастлива ты — счастлив я.</span>
+                <span class="line">Спасибо, что ты есть.</span>
+                <span class="line">Спасибо, что ты со мной.</span>
+                <span class="line">Я тебя люблю. ❤️</span>
+                <span class="line">С совершеннолетием, родная.</span>
+                <span class="line">С днём рождения.</span>
+            </div>
+            <div class="signature">
+                ❤️ От <span>Захара</span> ❤️
+            </div>
+
+            <div class="next-btn-wrapper">
+                <button class="next-btn" id="nextBtn">➡️ ДАЛЬШЕ</button>
+            </div>
+        </div>
+
+        <div class="final-photo-screen" id="finalPhotoScreen">
+            <div class="photo-wrapper">
+                <img src="ksusha1.jpg" alt="Ксюша">
+            </div>
+
+            <div class="poems">
+                <div class="poem-block">
+                    <span class="poem-title">❤️ Стих 1</span>
+                    <span class="poem-text">
+                        Ты — словно утро после сна,<br>
+                        Ты — как весенняя капель.<br>
+                        В тебе вся нежность и тепло,<br>
+                        Тобой согрет я каждый день.
+                    </span>
+                </div>
+
+                <div class="poem-block">
+                    <span class="poem-title">💫 Стих 2</span>
+                    <span class="poem-text">
+                        Твой взгляд — как тихая вода,<br>
+                        В нём отражаюсь я всегда.<br>
+                        Ты так прекрасна, как луна,<br>
+                        И как звезда в ночи ясна.
+                    </span>
+                </div>
+
+                <div class="poem-block">
+                    <span class="poem-title">🌟 Стих 3</span>
+                    <span class="poem-text">
+                        Я рядом буду, обещаю,<br>
+                        В печали, в радости, всегда.<br>
+                        Тебя я искренне, всем сердцем,<br>
+                        Люблю, родная, навсегда.
+                    </span>
+                </div>
+            </div>
+
+            <div class="final-greeting">
+                🎂 Ещё раз с днём рождения, <span>Ксюша</span>! 🎂
+            </div>
+
+            <div class="stars-btn-wrapper">
+                <button class="stars-btn" id="starsBtn">✨ ПОСМОТРИ НА ЗВЁЗДЫ</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="star-portrait-screen" id="starPortraitScreen">
+        <div class="space-bg"></div>
+        <div class="nebula"></div>
+
+        <div class="star-field" id="starField"></div>
+
+        <div class="moon-wrapper">
+            <div class="moon"></div>
+        </div>
+
+        <div class="planet-wrapper">
+            <div class="ring ring-3"></div>
+            <div class="ring"></div>
+            <div class="ring ring-2"></div>
+            <div class="planet"></div>
+        </div>
+
+        <canvas id="starCanvas"></canvas>
+
+        <div class="star-message">
+            Ты — моя <span>вселенная</span> ✨
+        </div>
+    </div>
+
+    <script>
+        // === ЭЛЕМЕНТЫ ===
+        const startScreen = document.getElementById('startScreen');
+        const congratsContent = document.getElementById('congratsContent');
+        const finalPhotoScreen = document.getElementById('finalPhotoScreen');
+        const starPortraitScreen = document.getElementById('starPortraitScreen');
+        const startBtn = document.getElementById('startBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const starsBtn = document.getElementById('starsBtn');
+        const body = document.body;
+
+        // === ОПРЕДЕЛЯЕМ ТЕЛЕФОН ===
+        const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
+
+        // === ЗВЁЗДЫ (фон основной) ===
+        for (let i = 0; i < 80; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.animationDelay = Math.random() * 3 + 's';
+            star.style.width = (Math.random() * 2 + 1) + 'px';
+            star.style.height = star.style.width;
+            document.getElementById('stars').appendChild(star);
+        }
+
+        // === ЗВЁЗДЫ ДЛЯ КОСМИЧЕСКОГО ЭКРАНА ===
+        const starField = document.getElementById('starField');
+        const bgStarsCount = isMobile ? 100 : 180;
+        for (let i = 0; i < bgStarsCount; i++) {
+            const star = document.createElement('div');
+            star.className = 'bg-star';
+            star.style.left = Math.random() * 100 + '%';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.width = (Math.random() * 2.5 + 0.5) + 'px';
+            star.style.height = star.style.width;
+            star.style.animationDelay = Math.random() * 4 + 's';
+            star.style.animationDuration = (2 + Math.random() * 3) + 's';
+            starField.appendChild(star);
+        }
+
+        // === ВЗРЫВ ===
+        function fireExplosion() {
+            const emojis = ['❤️', '🧡', '💛', '💚', '💙', '💜', '💗', '💖', '💘', '♥️', '🎉', '🎊', '✨', '⭐', '🌸', '🌺', '💫', '🌟', '🎈', '🎀', '🎂', '🥂'];
+            const count = isMobile ? 60 : 100;
+            for (let i = 0; i < count; i++) {
+                setTimeout(() => {
+                    const el = document.createElement('div');
+                    el.className = 'particle';
+                    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                    el.style.left = Math.random() * 100 + '%';
+                    el.style.top = Math.random() * 100 + '%';
+                    el.style.fontSize = (Math.random() * 32 + 16) + 'px';
+                    el.style.animationDuration = (Math.random() * 4 + 2.5) + 's';
+                    document.body.appendChild(el);
+                    setTimeout(() => el.remove(), 6000);
+                }, i * 50);
+            }
+        }
+
+        // === СТАРТ ===
+        window.addEventListener('load', () => {
+            body.classList.add('unlocked');
+            fireExplosion();
+        });
+
+        // === КНОПКА "К ПОЗДРАВЛЕНИЮ" ===
+        function showCongrats() {
+            startScreen.classList.add('hidden');
+            congratsContent.style.display = 'block';
+            fireExplosion();
+            setTimeout(() => {
+                congratsContent.classList.add('show');
+            }, 100);
+        }
+
+        startBtn.addEventListener('click', showCongrats);
+
+        // === КНОПКА "ДАЛЬШЕ" ===
+        function showFinalPhoto() {
+            congratsContent.style.display = 'none';
+            finalPhotoScreen.classList.add('show');
+            fireExplosion();
+        }
+
+        nextBtn.addEventListener('click', showFinalPhoto);
+
+        // === ЗВЁЗДНЫЙ ПОРТРЕТ (IMAGEDATA + EASE-IN-OUT) ===
+        const canvas = document.getElementById('starCanvas');
+        const ctx = canvas.getContext('2d', { alpha: true });
+
+        let particles = [];
+        let animationId = null;
+        let started = false;
+
+        // Буфер пикселей
+        let imageData = null;
+        let pixelBuffer = null;
+        let bufW = 0;
+        let bufH = 0;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            bufW = canvas.width;
+            bufH = canvas.height;
+            imageData = ctx.createImageData(bufW, bufH);
+            pixelBuffer = imageData.data;
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function initStarPortrait() {
+            const img = new Image();
+
+            img.onload = function () {
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+
+                const particleSize = isMobile ? 2 : 1.2;
+                const brightnessMin = isMobile ? 15 : 10;
+                const contrast = 1.8;
+
+                const maxSize = Math.min(canvas.width * 0.9, canvas.height * 0.9);
+                const scale = Math.min(maxSize / img.width, maxSize / img.height);
+
+                const imgW = img.width * scale;
+                const imgH = img.height * scale;
+
+                tempCanvas.width = Math.floor(imgW / particleSize);
+                tempCanvas.height = Math.floor(imgH / particleSize);
+
+                tempCtx.drawImage(img, 0, 0, tempCanvas.width, tempCanvas.height);
+
+                const data = tempCtx.getImageData(0, 0, tempCanvas.width, tempCanvas.height).data;
+
+                // Контраст
+                for (let i = 0; i < data.length; i += 4) {
+                    data[i]     = Math.min(255, Math.max(0, (data[i]     - 128) * contrast + 128));
+                    data[i + 1] = Math.min(255, Math.max(0, (data[i + 1] - 128) * contrast + 128));
+                    data[i + 2] = Math.min(255, Math.max(0, (data[i + 2] - 128) * contrast + 128));
+                }
+
+                const offsetX = (canvas.width - imgW) / 2;
+                const offsetY = (canvas.height - imgH) / 2;
+
+                particles = [];
+
+                for (let y = 0; y < tempCanvas.height; y++) {
+                    for (let x = 0; x < tempCanvas.width; x++) {
+                        const index = (y * tempCanvas.width + x) * 4;
+                        const r = data[index];
+                        const g = data[index + 1];
+                        const b = data[index + 2];
+                        const a = data[index + 3];
+
+                        if (a < 100) continue;
+
+                        const brightness = (r + g + b) / 3;
+                        if (brightness < brightnessMin) continue;
+
+                        const targetX = offsetX + x * particleSize + particleSize / 2;
+                        const targetY = offsetY + y * particleSize + particleSize / 2;
+
+                        const startX = Math.random() * canvas.width;
+                        const startY = Math.random() * canvas.height;
+
+                        particles.push({
+                            startX: startX,
+                            startY: startY,
+                            targetX: targetX,
+                            targetY: targetY,
+                            brightness: brightness / 255,
+                            progress: 0,
+                            speed: Math.random() * 0.001 + 0.001
+                        });
+                    }
+                }
+
+                console.log('⭐ Частиц создано:', particles.length);
+
+                if (particles.length === 0) {
+                    ctx.fillStyle = '#fff';
+                    ctx.font = '20px Arial';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('Портрет не распознан 😔', canvas.width / 2, canvas.height / 2);
+                    return;
+                }
+
+                console.log('⏱️ Космос крутится 5 секунд...');
+                setTimeout(() => {
+                    console.log('🚀 Запуск сборки портрета!');
+                    started = true;
+                    animateStarPortrait();
+                }, 5000);
+            };
+
+            img.onerror = function () {
+                ctx.fillStyle = '#fff';
+                ctx.font = '20px Arial';
+                ctx.textAlign = 'center';
+                ctx.fillText('Фото ksusha.jpg не найдено', canvas.width / 2, canvas.height / 2);
+            };
+
+            img.src = "ksusha.jpg?v=" + Date.now();
+        }
+
+        // === EASE-IN-OUT + IMAGEDATA ===
+        function animateStarPortrait() {
+            animationId = requestAnimationFrame(animateStarPortrait);
+
+            if (!started) return;
+
+            // Очищаем буфер
+            pixelBuffer.fill(0);
+
+            for (let i = 0; i < particles.length; i++) {
+                const p = particles[i];
+
+                // Прогресс
+                if (p.progress < 1) {
+                    p.progress += p.speed;
+                    if (p.progress > 1) p.progress = 1;
+                }
+
+                // === EASE-IN-OUT CUBIC ===
+                const t = p.progress;
+                let ease;
+                if (t < 0.5) {
+                    ease = 4 * t * t * t;
+                } else {
+                    ease = 1 - Math.pow(-2 * t + 2, 3) / 2;
+                }
+
+                // Позиция
+                const x = p.startX + (p.targetX - p.startX) * ease;
+                const y = p.startY + (p.targetY - p.startY) * ease;
+
+                // Запись пикселя в буфер
+                const px = Math.floor(x);
+                const py = Math.floor(y);
+
+                if (px >= 0 && px < bufW && py >= 0 && py < bufH) {
+                    const idx = (py * bufW + px) * 4;
+                    const bright = Math.floor(255 * p.brightness);
+
+                    pixelBuffer[idx]     = bright;      // R
+                    pixelBuffer[idx + 1] = bright;      // G
+                    pixelBuffer[idx + 2] = bright;      // B
+                    pixelBuffer[idx + 3] = bright;      // A
+                }
+            }
+
+            // Один вызов = все частицы
+            ctx.putImageData(imageData, 0, 0);
+        }
+
+        starsBtn.addEventListener('click', () => {
+            finalPhotoScreen.style.display = 'none';
+            starPortraitScreen.classList.add('show');
+
+            started = false;
+
+            setTimeout(() => {
+                resizeCanvas();
+                initStarPortrait();
+            }, 150);
+        });
+    </script>
+</body>
+</html>
